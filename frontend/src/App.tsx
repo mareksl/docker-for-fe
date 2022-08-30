@@ -1,9 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { getHello } from './api'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    getHello().then(({ data }) => {
+      setMessage(data.message);
+    })
+  })
 
   return (
     <div className="App">
@@ -20,6 +28,7 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <p className='hello-message'>{message}</p>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

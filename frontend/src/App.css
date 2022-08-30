@@ -39,3 +39,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.hello-message {
+  color: darkred;
+  font-size: 32px;
+  font-weight: bold;
+  text-shadow: 1px 1px 4px black;
+}
