@@ -2,7 +2,7 @@ FROM node:18.8.0-alpine as install
 WORKDIR /usr/src/app
 COPY package*.json yarn.lock ./
 RUN yarn install \
-  && yarn cache clean
+    && yarn cache clean
 
 FROM install AS dev
 ENV NODE_ENV=development
@@ -13,8 +13,6 @@ ENV NODE_ENV=production
 COPY . .
 RUN yarn build
 
-FROM nginx:stable-alpine AS prod
-EXPOSE 80
-COPY nginx.conf /etc/nginx/nginx.conf
-WORKDIR /usr/share/nginx/html
+FROM install AS prod
 COPY --from=build /usr/src/app/dist .
+CMD ["node", "index.js"]
